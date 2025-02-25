@@ -1,3 +1,7 @@
+using FinanceApp.Data;
+using FinanceApp.Data.Service;
+using Microsoft.EntityFrameworkCore;
+
 namespace FinanceApp
 {
     public class Program
@@ -8,6 +12,10 @@ namespace FinanceApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<FinanceAppContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+
+            // Add services
+            builder.Services.AddScoped<IExpensesService, ExpensesService>();
 
             var app = builder.Build();
 
